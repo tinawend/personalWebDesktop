@@ -1,0 +1,43 @@
+body {
+    color: aliceblue;
+
+    background-image: url('/image/background1.jpg');
+    background-position-y: center;
+    background-size: 150%;
+}
+
+.ikon {
+    height: 50px;
+    bottom: 10px;
+    position: absolute;
+}
+.ikon:hover {
+    background-color: red;
+}
+
+#memo {
+    margin-left: 60px;
+    position: absolute;
+}
+
+#puzzle {
+    margin-left: 120px;
+}
+footer {
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    height: 60px;
+    width: 100%;
+    
+    opacity: 1;
+    background-color: rgba(170, 15, 110, 0.6);
+    
+}
+#pics img {
+    width: 100px;
+    }
+    
+    .removed {
+        visibility: hidden;
+    }
