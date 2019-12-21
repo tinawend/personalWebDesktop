@@ -19,13 +19,16 @@ export class Memory extends window.HTMLElement {
     this.showPics(this.rows, this.cols)
   }
 
+  // cleanUp () {
+  //   while (this.shadowRoot.firstChild) {
+  //     this.shadowRoot.removeChild(this.shadowRoot.firstChild)
+  //   }
+  // }
+
   showPics () {
     const pics = this.shadowRoot.querySelector('#pics')
-    console.log(this.tiles)
     let img
-    // const template = document.querySelectorAll('img')[0]
     this.tiles.forEach((tile, index) => {
-    //   img = document.importNode(template.content.firstElementChild(true))
       const a = document.createElement('a')
       a.setAttribute('href', '#')
       img = document.createElement('img')
@@ -34,12 +37,10 @@ export class Memory extends window.HTMLElement {
       a.appendChild(img)
 
       img.addEventListener('click', event => {
-        console.log(tile)
         this.turnBrick(tile, index, event.target)
       })
       a.addEventListener('keydown', event => {
         if (event.keyCode === 13) {
-          console.log(tile)
           this.turnBrick(tile, index, event.target)
         }
       })
@@ -69,6 +70,8 @@ export class Memory extends window.HTMLElement {
         this.pairs += 1
         if (this.pairs === (this.cols * this.rows) / 2) {
           console.log('you won at ' + this.tries + ' number of tries')
+          this.shadowRoot.querySelector('#win').textContent = 'you won on ' + this.tries + ' tries'
+          this.shadowRoot.querySelector('h2').textContent = 'congratulations!'
         }
         setTimeout(() => {
           this.turn1.parentNode.classList.add('removed')
@@ -76,7 +79,7 @@ export class Memory extends window.HTMLElement {
 
           this.turn1 = null
           this.turn2 = null
-        }, 300)
+        }, 200)
       } else {
         setTimeout(() => {
           this.turn1.src = 'image/0.png'
@@ -84,7 +87,7 @@ export class Memory extends window.HTMLElement {
 
           this.turn1 = null
           this.turn2 = null
-        }, 1000)
+        }, 800)
       }
     }
   }
