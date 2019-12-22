@@ -1,7 +1,7 @@
 import { desktop } from './html.js'
 import './memory/memory.js'
 import './chat/chat.js'
-import './puzzle/puzzle.js'
+import './tictacktoe/ticktack.js'
 import './window.js'
 
 export class Desktop extends window.HTMLElement {
@@ -26,22 +26,25 @@ export class Desktop extends window.HTMLElement {
           this.div2 = windowbox.shadowRoot.querySelector('#div2')
           const memory = document.createElement('memory-game')
           this.div2.appendChild(memory)
-          this.mouse()
         } else if (event.target === this.shadowRoot.querySelector('#chat')) {
           this.div2 = windowbox.shadowRoot.querySelector('#div2')
           const chat = document.createElement('chat-app')
           this.div2.appendChild(chat)
-          this.mouse()
         } else if (event.target === this.shadowRoot.querySelector('#puzzle')) {
           this.div2 = windowbox.shadowRoot.querySelector('#div2')
-          const puzzle = document.createElement('puzzle-game')
+          const puzzle = document.createElement('tictac-game')
           this.div2.appendChild(puzzle)
-          this.mouse()
         }
-        windowbox.shadowRoot.querySelector('#close').addEventListener('click', event => {
-          this.div2.style.display = 'none'
-        })
+        this.mouse()
+        this.close()
       })
+    })
+  }
+
+  close () {
+    const windowbox = this.shadowRoot.querySelector('window-box')
+    windowbox.shadowRoot.querySelector('.close').addEventListener('click', event => {
+      this.div2.style.display = 'none'
     })
   }
 

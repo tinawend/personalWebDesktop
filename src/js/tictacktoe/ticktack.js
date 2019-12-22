@@ -1,6 +1,6 @@
-import { template2 } from './htmlpuzzle.js'
+import { template2 } from './htmltoe.js'
 
-export class Puzzle extends window.HTMLElement {
+export class TicTac extends window.HTMLElement {
   constructor () {
     super()
     this.attachShadow({ mode: 'open' })
@@ -12,4 +12,4 @@ export class Puzzle extends window.HTMLElement {
   }
 }
 
-window.customElements.define('puzzle-game', Puzzle)
+window.customElements.define('tictac-game', TicTac)

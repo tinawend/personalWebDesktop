@@ -4,6 +4,7 @@ body {
     background-image: url('/image/background1.jpg');
     background-position-y: center;
     background-size: 150%;
+
 }
 
 #div2 {
@@ -14,7 +15,7 @@ body {
     position: absolute;
     text-align: center;
 }
-#close {
+.close {
     position: absolute;
     right: 14px;
     font-size: 30px;
@@ -40,6 +41,33 @@ body {
 #puzzle {
     margin-left: 120px;
 }
+
+td {
+    border: 2px solid purple;
+    height: 60px;
+    width: 60px;
+    font-size: 50px;
+    cursor: pointer;
+}
+table {
+    border-collapse: collapse;
+    position: absolute;
+    left: 50%;
+    margin-left: -90px;
+}
+table tr:first-child td {
+    border-top: 0;
+}
+table tr:last-child td {
+    border-bottom: 0;
+}
+table tr td:last-child {
+    border-right: 0;
+}
+table tr td:first-child {
+    border-left: 0;
+}
+
 footer {
     position: absolute;
     left: 0;
