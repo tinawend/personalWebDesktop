@@ -9,11 +9,13 @@ export class TicTac extends window.HTMLElement {
     this.players = []
     this.players[0] = this.player1
     this.players[1] = this.player2
+    this.scores = [0, 0]
     this.turn = 0
+    this.winner = false
     this.winalts = [
-      [0, 1, 2], [3, 4, 5], [6, 7, 8],
-      [0, 3, 6], [1, 4, 7], [2, 5, 8],
-      [0, 4, 8], [2, 4, 6]
+      7, 56, 73,
+      84, 146, 273,
+      292, 448
     ]
     this.box = this.shadowRoot.querySelectorAll('.box')
   }
@@ -25,10 +27,15 @@ export class TicTac extends window.HTMLElement {
   startGame () {
     this.board = Array.from(Array(9).keys())
     console.log(this.board)
+
     for (let i = 0; i < this.box.length; i++) {
       this.box[i].addEventListener('click', event => {
         console.log(event.target.id)
 
+        this.scores[this.turn] += parseInt(event.target.id)
+        console.log(this.scores)
+
+        this.win()
         if (this.turn === 0) {
           this.board[event.target.id] = this.markers[this.turn]
           event.target.textContent = this.markers[this.turn]
@@ -40,11 +47,31 @@ export class TicTac extends window.HTMLElement {
 
           this.turn = 0
         }
-        // if (this.box[event.target.id] === 'X') {
-        //   console.log('hej')
-        // }
       })
     }
+  }
+
+  win () {
+    for (let i = 0; i < this.winalts.length; i++) {
+      if (this.scores[this.turn] === this.winalts[i]) {
+        console.log('Win')
+      }
+    }
+    // this.winalts.forEach(winningcombo => {
+    //   const pos = this.board
+    //   const pos0inner = pos[winningcombo[0]].innerText
+    //   const pos1inner = pos[winningcombo[1]].innerText
+    //   const pos2inner = pos[winningcombo[2]].innerText
+    //   const wincomb = (pos0inner !== '') &&
+    // (pos0inner === pos1inner) &&
+    // (pos1inner === pos2inner)
+
+    //   if (wincomb) {
+    //     this.winner = true
+    //     console.log(pos[winningcombo[0]].innerText)
+    // }
+    // })
+    // return this.winner
   }
 }
 
