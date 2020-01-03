@@ -7,11 +7,11 @@ export class TicTac extends window.HTMLElement {
     this.shadowRoot.appendChild(template2.content.cloneNode(true))
     this.markers = ['O', 'X']
     this.players = []
-    this.players[0] = this.player1
-    this.players[1] = this.player2
+    this.players[0] = 'player 1'
+    this.players[1] = 'player 2'
     this.scores = [0, 0]
     this.turn = 0
-    this.winner = false
+    this.gameOver = false
     this.winalts = [
       7, 56, 73,
       84, 146, 273,
@@ -32,20 +32,22 @@ export class TicTac extends window.HTMLElement {
       this.box[i].addEventListener('click', event => {
         console.log(event.target.id)
 
-        this.scores[this.turn] += parseInt(event.target.id)
-        console.log(this.scores)
+        if (!this.gameOver) {
+          this.scores[this.turn] += parseInt(event.target.id)
+          console.log(this.scores)
+          this.win()
 
-        this.win()
-        if (this.turn === 0) {
-          this.board[event.target.id] = this.markers[this.turn]
-          event.target.textContent = this.markers[this.turn]
+          if (this.turn === 0) {
+            this.board[event.target.id] = this.markers[this.turn]
+            event.target.textContent = this.markers[this.turn]
 
-          this.turn = 1
-        } else {
-          this.board[event.target.id] = this.markers[this.turn]
-          event.target.textContent = this.markers[this.turn]
+            this.turn = 1
+          } else {
+            this.board[event.target.id] = this.markers[this.turn]
+            event.target.textContent = this.markers[this.turn]
 
-          this.turn = 0
+            this.turn = 0
+          }
         }
       })
     }
@@ -53,25 +55,17 @@ export class TicTac extends window.HTMLElement {
 
   win () {
     for (let i = 0; i < this.winalts.length; i++) {
-      if (this.scores[this.turn] === this.winalts[i]) {
+      if ((this.scores[this.turn] & this.winalts[i]) === this.winalts[i]) {
         console.log('Win')
+        this.shadowRoot.querySelector('h1').textContent = this.players[this.turn] + ' Wins!'
+        this.gameOver = true
       }
     }
-    // this.winalts.forEach(winningcombo => {
-    //   const pos = this.board
-    //   const pos0inner = pos[winningcombo[0]].innerText
-    //   const pos1inner = pos[winningcombo[1]].innerText
-    //   const pos2inner = pos[winningcombo[2]].innerText
-    //   const wincomb = (pos0inner !== '') &&
-    // (pos0inner === pos1inner) &&
-    // (pos1inner === pos2inner)
-
-    //   if (wincomb) {
-    //     this.winner = true
-    //     console.log(pos[winningcombo[0]].innerText)
-    // }
-    // })
-    // return this.winner
+    if (((this.scores[0] + this.scores[1]) === 511) && !this.gameOver) {
+      console.log('draw')
+      this.shadowRoot.querySelector('h1').textContent = 'Draw!'
+      this.gameOver = true
+    }
   }
 }
 
