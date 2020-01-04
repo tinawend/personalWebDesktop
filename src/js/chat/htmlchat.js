@@ -4,7 +4,19 @@ template1.innerHTML = `
 <h1>Chat</h1>
 <h2></h2>
 <p></p>
+<div class = 'chat'>
+<div class = 'messages'>
 
+<template>
+<div class = 'message>
+<p class = 'text'></p>
+<p class = 'author'></p>
+</div>
+</template>
+
+</div>
+<textarea class = 'messageArea'></textarea>
+</div>
 
 `
 

@@ -24,5 +24,15 @@ template2.innerHTML = `
 
 
 `
+const template3 = document.createElement('template')
+template3.innerHTML = `
+<form>
+player 1: <br>
+<input type = 'text' name = 'player1'><br>
+player2: <br>
+<input type = 'text' name = 'player2'><br><br>
+<input id='username' type = 'submit' value = 'Submit'>
+</form>
+`
 
-export { template2 }
+export { template2, template3 }

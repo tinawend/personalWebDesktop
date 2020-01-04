@@ -6,7 +6,7 @@ desktop.innerHTML = `
 <div>
 <img class = 'ikon' id = 'chat' src = '/image/chatikon.png'/>
 <img class = 'ikon' id = 'memo' src = '/image/memoryikon.png'/>
-<img class = 'ikon' id = 'puzzle' src = '/image/puzzleikon.jpg'/>
+<img class = 'ikon' id = 'tictac' src = '/image/tictacikon.png'/>
 </div>
 
 `

@@ -1,4 +1,4 @@
-import { template2 } from './htmltoe.js'
+import { template2, template3 } from './htmltoe.js'
 
 export class TicTac extends window.HTMLElement {
   constructor () {
@@ -21,10 +21,26 @@ export class TicTac extends window.HTMLElement {
   }
 
   connectedCallback () {
+    // this.enterUsername()
     this.startGame()
   }
 
+  cleanUp () {
+    while (this.shadowRoot.firstChild) {
+      this.shadowRoot.removeChild(this.shadowRoot.firstChild)
+    }
+  }
+
+  // enterUsername () {
+  //   this.shadowRoot.querySelector('form').addEventListener('click', event => {
+  //     this.cleanUp()
+  //     this.startGame()
+  //     this.shadowRoot.querySelector('form').removeEventListener('click')
+  //   })
+  // }
+
   startGame () {
+    // this.shadowRoot.appendChild(template2.content.cloneNode(true))
     this.board = Array.from(Array(9).keys())
     console.log(this.board)
 

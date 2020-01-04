@@ -30,7 +30,7 @@ export class Desktop extends window.HTMLElement {
           this.div2 = windowbox.shadowRoot.querySelector('#div2')
           const chat = document.createElement('chat-app')
           this.div2.appendChild(chat)
-        } else if (event.target === this.shadowRoot.querySelector('#puzzle')) {
+        } else if (event.target === this.shadowRoot.querySelector('#tictac')) {
           this.div2 = windowbox.shadowRoot.querySelector('#div2')
           const puzzle = document.createElement('tictac-game')
           this.div2.appendChild(puzzle)
