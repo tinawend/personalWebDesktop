@@ -35,7 +35,7 @@ export class Desktop extends window.HTMLElement {
           const puzzle = document.createElement('tictac-game')
           this.div2.appendChild(puzzle)
         }
-        this.mouse()
+        // this.mouse()
         this.close()
       })
     })

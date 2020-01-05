@@ -10,8 +10,8 @@ export class Memory extends window.HTMLElement {
     this.lastTile = this.lastTile
     this.pairs = 0
     this.tries = 0
-    this.rows = 2
-    this.cols = 2
+    this.rows = 4
+    this.cols = 4
     this.tiles = this.shuffle(this.rows, this.cols)
   }
 

@@ -14,6 +14,8 @@ body {
     opacity: 0.8; 
     position: absolute;
     text-align: center;
+    resize: both;
+    overflow: auto;
 }
 .close {
     position: absolute;
@@ -91,3 +93,4 @@ footer {
     background-color: pink;
     border: 2px solid purple;
 }
+
