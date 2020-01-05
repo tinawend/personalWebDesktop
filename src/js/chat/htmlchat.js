@@ -8,7 +8,7 @@ template1.innerHTML = `
 <div class = 'messages'>
 
 <template>
-<div class = 'message>
+<div class = 'message'>
 <p class = 'text'></p>
 <p class = 'author'></p>
 </div>
