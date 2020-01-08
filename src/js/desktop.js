@@ -9,6 +9,9 @@ export class Desktop extends window.HTMLElement {
     super()
     this.attachShadow({ mode: 'open' })
     this.shadowRoot.appendChild(desktop.content.cloneNode(true))
+    this.windowscol = []
+    // this.drag = false
+    // this.body = document.getElementsByTagName('desktop-view')
   }
 
   connectedCallback () {
@@ -16,64 +19,74 @@ export class Desktop extends window.HTMLElement {
   }
 
   clickedIcon () {
-    this.shadowRoot.querySelectorAll('.ikon').forEach(item => {
-      item.addEventListener('click', event => {
+    this.shadowRoot.querySelectorAll('.ikon').forEach(element => {
+      element.addEventListener('click', event => {
         const div = this.shadowRoot.querySelector('#endiv')
         const windowbox = document.createElement('window-box')
+        this.windowscol.push(windowbox)
         div.appendChild(windowbox)
-
+        this.div2 = windowbox.shadowRoot.querySelector('.div2')
         if (event.target === this.shadowRoot.querySelector('#memo')) {
-          this.div2 = windowbox.shadowRoot.querySelector('#div2')
           const memory = document.createElement('memory-game')
           this.div2.appendChild(memory)
         } else if (event.target === this.shadowRoot.querySelector('#chat')) {
-          this.div2 = windowbox.shadowRoot.querySelector('#div2')
           const chat = document.createElement('chat-app')
           this.div2.appendChild(chat)
         } else if (event.target === this.shadowRoot.querySelector('#tictac')) {
-          this.div2 = windowbox.shadowRoot.querySelector('#div2')
-          const puzzle = document.createElement('tictac-game')
-          this.div2.appendChild(puzzle)
+          const tictac = document.createElement('tictac-game')
+          this.div2.appendChild(tictac)
         }
-        // this.mouse()
-        this.close()
+        this.close(windowbox)
+        // this.foc()
       })
     })
   }
 
-  close () {
-    const windowbox = this.shadowRoot.querySelector('window-box')
+  foc () {
+    this.shadowRoot.querySelectorAll('.div2').forEach(element => {
+      element.addEventListener('click', event => {
+        // const body = document.querySelector('body')
+        // body.addEventListener('click', event => {
+        console.log(event)
+        // this.windowscol
+      })
+    })
+  }
+
+  close (windowbox) {
     windowbox.shadowRoot.querySelector('.close').addEventListener('click', event => {
-      this.div2.style.display = 'none'
+      windowbox.shadowRoot.querySelector('#wrapper').style.display = 'none'
     })
   }
 
-  mouse () {
-    window.addEventListener('mousedown', event => {
-      event.preventDefault()
+  //   mouse () {
+  //     window.addEventListener('mousedown', event => {
+  //       event.preventDefault()
+  //       this.drag = true
+  //       this.prevX = event.clientX
+  //       this.prevY = event.clientY
+  //       console.log('funkar')
+  //     })
 
-      let prevX = event.clientX
-      let prevY = event.clientY
+  //     window.addEventListener('mousemove', event => {
+  //       event.preventDefault()
+  //       if (this.drag === true) {
+  //         const newX = this.prevX - event.clientX
+  //         const newY = this.prevY - event.clientY
 
-      window.addEventListener('mousemove', event => {
-        event.preventDefault()
-        if (event.buttons === 0) {
-          window.removeEventListener('mousedown')
-          window.removeEventListener('mousemove')
-        } else {
-          const newX = prevX - event.clientX
-          const newY = prevY - event.clientY
+  //         this.prevX = event.clientX
+  //         this.prevY = event.clientY
+  //         const rect = this.div2.getBoundingClientRect()
 
-          prevX = event.clientX
-          prevY = event.clientY
-          const rect = this.div2.getBoundingClientRect()
+  //         this.div2.style.left = rect.left - newX + 'px'
+  //         this.div2.style.top = rect.top - newY + 'px'
+  //       }
+  //     })
 
-          this.div2.style.left = rect.left - newX + 'px'
-          this.div2.style.top = rect.top - newY + 'px'
-        }
-      })
-    })
-  }
+//     window.addEventListener('mouseup', event => {
+//       this.drag = false
+//     })
+//   }
 }
 
 window.customElements.define('desktop-view', Desktop)

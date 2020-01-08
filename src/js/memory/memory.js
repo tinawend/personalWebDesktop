@@ -1,29 +1,55 @@
-import { template } from './htmlmemory.js'
+import { template, fourOrTwo } from './htmlmemory.js'
 
 export class Memory extends window.HTMLElement {
   constructor () {
     super()
     this.attachShadow({ mode: 'open' })
-    this.shadowRoot.appendChild(template.content.cloneNode(true))
+    this.shadowRoot.appendChild(fourOrTwo.content.cloneNode(true))
     this.turn1 = this.turn1
     this.turn2 = this.turn2
     this.lastTile = this.lastTile
     this.pairs = 0
     this.tries = 0
-    this.rows = 4
-    this.cols = 4
+    this.rows = 2
+    this.cols = 2
+
     this.tiles = this.shuffle(this.rows, this.cols)
   }
 
   connectedCallback () {
-    this.showPics(this.rows, this.cols)
+    this.shadowRoot.querySelectorAll('button').forEach(item => {
+      item.addEventListener('click', event => {
+        if (event.target.matches('#four')) {
+          this.cleanUp()
+          this.rows = 4
+          this.cols = 4
+          this.tiles = this.shuffle(this.rows, this.cols)
+          this.shadowRoot.appendChild(template.content.cloneNode(true))
+          this.showPics(this.rows, this.cols)
+        } else if (event.target.matches('#two')) {
+          this.cleanUp()
+          this.rows = 2
+          this.cols = 2
+          this.tiles = this.shuffle(this.rows, this.cols)
+          this.shadowRoot.appendChild(template.content.cloneNode(true))
+          this.showPics(this.rows, this.cols)
+        } else if (event.target.matches('#twofour')) {
+          this.cleanUp()
+          this.rows = 2
+          this.cols = 4
+          this.tiles = this.shuffle(this.rows, this.cols)
+          this.shadowRoot.appendChild(template.content.cloneNode(true))
+          this.showPics(this.rows, this.cols)
+        }
+      })
+    })
   }
 
-  // cleanUp () {
-  //   while (this.shadowRoot.firstChild) {
-  //     this.shadowRoot.removeChild(this.shadowRoot.firstChild)
-  //   }
-  // }
+  cleanUp () {
+    while (this.shadowRoot.firstChild) {
+      this.shadowRoot.removeChild(this.shadowRoot.firstChild)
+    }
+  }
 
   showPics () {
     const pics = this.shadowRoot.querySelector('#pics')

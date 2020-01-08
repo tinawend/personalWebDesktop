@@ -26,12 +26,13 @@ template2.innerHTML = `
 `
 const template3 = document.createElement('template')
 template3.innerHTML = `
+<head><link rel="stylesheet" href="css/style.css"></head>
 <form>
 player 1: <br>
-<input type = 'text' name = 'player1'><br>
+<input id = 'player1' type = 'text' name = 'player1'><br>
 player2: <br>
-<input type = 'text' name = 'player2'><br><br>
-<input id='username' type = 'submit' value = 'Submit'>
+<input id = 'player2' type = 'text' name = 'player2'><br><br>
+<button id = 'username'> Börja spela </button>
 </form>
 `
 

@@ -4,11 +4,54 @@ export class TicTac extends window.HTMLElement {
   constructor () {
     super()
     this.attachShadow({ mode: 'open' })
-    this.shadowRoot.appendChild(template2.content.cloneNode(true))
+    this.shadowRoot.appendChild(template3.content.cloneNode(true))
     this.markers = ['O', 'X']
     this.players = []
     this.players[0] = 'player 1'
     this.players[1] = 'player 2'
+    this.scores = [0, 0]
+    this.turn = 0
+  }
+
+  connectedCallback () {
+    this.enterUsername()
+    // this.startGame()
+  }
+
+  cleanUp () {
+    while (this.shadowRoot.firstChild) {
+      this.shadowRoot.removeChild(this.shadowRoot.firstChild)
+    }
+  }
+
+  enterUsername () {
+    this.shadowRoot.querySelector('#username').addEventListener('click', event => {
+      event.preventDefault()
+      if (event.target === this.shadowRoot.querySelector('#username')) {
+        this.players[0] = this.shadowRoot.querySelector('#player1').value
+        this.players[1] = this.shadowRoot.querySelector('#player2').value
+        this.user()
+        this.cleanUp()
+      }
+
+      console.log(this.players[0], this.players[1])
+      this.startGame()
+    })
+  }
+
+  user () {
+    this.obj = [
+      this.players[0],
+      this.players[1]
+    ]
+
+    window.localStorage.setItem('username', JSON.stringify(this.obj))
+  }
+
+  startGame () {
+    this.shadowRoot.appendChild(template2.content.cloneNode(true))
+    this.markers = ['O', 'X']
+    this.players = []
     this.scores = [0, 0]
     this.turn = 0
     this.gameOver = false
@@ -18,29 +61,6 @@ export class TicTac extends window.HTMLElement {
       292, 448
     ]
     this.box = this.shadowRoot.querySelectorAll('.box')
-  }
-
-  connectedCallback () {
-    // this.enterUsername()
-    this.startGame()
-  }
-
-  cleanUp () {
-    while (this.shadowRoot.firstChild) {
-      this.shadowRoot.removeChild(this.shadowRoot.firstChild)
-    }
-  }
-
-  // enterUsername () {
-  //   this.shadowRoot.querySelector('form').addEventListener('click', event => {
-  //     this.cleanUp()
-  //     this.startGame()
-  //     this.shadowRoot.querySelector('form').removeEventListener('click')
-  //   })
-  // }
-
-  startGame () {
-    // this.shadowRoot.appendChild(template2.content.cloneNode(true))
     this.board = Array.from(Array(9).keys())
     console.log(this.board)
 
@@ -73,7 +93,7 @@ export class TicTac extends window.HTMLElement {
     for (let i = 0; i < this.winalts.length; i++) {
       if ((this.scores[this.turn] & this.winalts[i]) === this.winalts[i]) {
         console.log('Win')
-        this.shadowRoot.querySelector('h1').textContent = this.players[this.turn] + ' Wins!'
+        this.shadowRoot.querySelector('h1').textContent = this.obj[this.turn] + ' Wins!'
         this.gameOver = true
       }
     }

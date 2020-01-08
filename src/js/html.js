@@ -14,11 +14,13 @@ desktop.innerHTML = `
 const wind = document.createElement('template')
 wind.innerHTML = `
 <head><link rel="stylesheet" href="css/style.css"></head>
-<div id = 'div'>
-<div id = 'div2' draggable = 'true'>
+<div id = 'wrapper' draggable = 'true'>
 <div class = 'close'>+</div>
-</div>
+<div class = 'div2' >
+
+
 </div> 
+</div>
 `
 
 export { desktop, wind }

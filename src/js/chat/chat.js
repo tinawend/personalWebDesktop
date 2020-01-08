@@ -58,7 +58,7 @@ export class Chat extends window.HTMLElement {
     const template = this.chatDiv.querySelector('template')
     const messagediv = document.importNode(template.content.firstElementChild, true)
     messagediv.querySelectorAll('.text')[0].textContent = message.data
-    messagediv.querySelectorAll('.author')[0].textContent = message.username
+    messagediv.querySelectorAll('.author')[0].textContent = message.username + ':'
     this.chatDiv.querySelectorAll('.messages')[0].appendChild(messagediv)
   }
 }
