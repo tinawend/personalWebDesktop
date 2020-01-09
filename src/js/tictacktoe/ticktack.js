@@ -45,7 +45,7 @@ export class TicTac extends window.HTMLElement {
       this.players[1]
     ]
 
-    window.localStorage.setItem('username', JSON.stringify(this.obj))
+    window.localStorage.setItem('usernames', JSON.stringify(this.obj))
   }
 
   startGame () {
@@ -68,17 +68,17 @@ export class TicTac extends window.HTMLElement {
       this.box[i].addEventListener('click', event => {
         console.log(event.target.id)
 
-        if (!this.gameOver) {
+        if (!this.gameOver && event.target.textContent === '') {
           this.scores[this.turn] += parseInt(event.target.id)
           console.log(this.scores)
           this.win()
 
-          if (this.turn === 0) {
+          if (this.turn === 0 && event.target.textContent === '') {
             this.board[event.target.id] = this.markers[this.turn]
             event.target.textContent = this.markers[this.turn]
 
             this.turn = 1
-          } else {
+          } else if (this.turn === 1 && event.target.textContent === '') {
             this.board[event.target.id] = this.markers[this.turn]
             event.target.textContent = this.markers[this.turn]
 

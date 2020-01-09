@@ -6,9 +6,11 @@ export class Chat extends window.HTMLElement {
     this.attachShadow({ mode: 'open' })
     this.shadowRoot.appendChild(template1.content.cloneNode(true))
     this.chatDiv = this.shadowRoot.querySelector('.chat')
+    // this.username = ''
   }
 
   connectedCallback () {
+    // this.enterUsername()
     this.chatDiv.addEventListener('keypress', event => {
       if (event.keyCode === 13) {
         this.sendMessage(event.target.value)
@@ -16,7 +18,25 @@ export class Chat extends window.HTMLElement {
         event.preventDefault()
       }
     })
+
     this.connect()
+    this.enterUsername()
+  }
+
+  enterUsername () {
+    this.username = JSON.parse(window.localStorage.getItem('username'))
+    this.shadowRoot.querySelector('#yourUsername').textContent = this.username
+    this.shadowRoot.querySelector('#save').addEventListener('click', event => {
+      event.preventDefault()
+      if (event.target === this.shadowRoot.querySelector('#save')) {
+        this.username = this.shadowRoot.querySelector('#username').value
+        this.shadowRoot.querySelector('#yourUsername').textContent = this.username
+        this.shadowRoot.querySelector('#username').value = ''
+        console.log(this.username)
+      }
+
+      // this.startGame()
+    })
   }
 
   connect () {
@@ -43,14 +63,14 @@ export class Chat extends window.HTMLElement {
     const data = {
       type: 'message',
       data: text,
-      username: 'Tina',
+      username: this.username,
       channel: 'my, not so secret, channel',
       key: 'eDBE76deU7L0H9mEBgxUKVR0VCnq0XBd'
     }
     this.connect().then(function (socket) {
       socket.send(JSON.stringify(data))
     })
-
+    window.localStorage.setItem('username', JSON.stringify(data.username))
     console.log('sending message', text)
   }
 

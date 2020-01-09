@@ -26,7 +26,6 @@ class WindowBox extends window.HTMLElement {
       if (event.target === element) {
         this.mouse(event, element)
       }
-      console.log('hej')
     })
   }
 
@@ -56,7 +55,6 @@ class WindowBox extends window.HTMLElement {
   }
 
   close (event) {
-    console.log('leaving')
     this.drag1 = false
   }
 }
