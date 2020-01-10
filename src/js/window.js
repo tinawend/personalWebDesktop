@@ -1,6 +1,8 @@
 
 import { wind } from './html.js'
-
+/**
+ *
+ */
 class WindowBox extends window.HTMLElement {
   constructor () {
     super()
@@ -13,6 +15,9 @@ class WindowBox extends window.HTMLElement {
     this.drag1 = false
   }
 
+  /**
+ *
+ */
   connectedCallback () {
     const windows = this.shadowRoot.querySelectorAll('#wrapper')
     for (let i = 0; i < windows.length; i++) {
@@ -21,6 +26,10 @@ class WindowBox extends window.HTMLElement {
     }
   }
 
+  /**
+ *
+ * @param {*} element
+ */
   drag (element) {
     element.addEventListener('mousedown', event => {
       if (event.target === element) {
@@ -29,9 +38,15 @@ class WindowBox extends window.HTMLElement {
     })
   }
 
+  /**
+ *
+ * @param {*} event
+ * @param {*} element
+ */
   mouse (event, element) {
     event.preventDefault()
     this.drag1 = true
+    element.style.cursor = 'grabbing'
     event = event || window.event
     this.pos3 = event.clientX
     this.pos4 = event.clientY
@@ -39,6 +54,11 @@ class WindowBox extends window.HTMLElement {
     document.addEventListener('mouseup', event => this.close(event, element))
   }
 
+  /**
+ *
+ * @param {*} event
+ * @param {*} element
+ */
   move (event, element) {
     if (this.drag1 === true) {
       event.preventDefault()
@@ -47,13 +67,18 @@ class WindowBox extends window.HTMLElement {
       this.pos2 = this.pos4 - event.clientY
       this.pos3 = event.clientX
       this.pos4 = event.clientY
-      // const rect = this.div2.getBoundingClientRect()
 
       element.style.left = (element.offsetLeft - this.pos1) + 'px'
       element.style.top = (element.offsetTop - this.pos2) + 'px'
+    } else {
+      element.style.cursor = 'grab'
     }
   }
 
+  /**
+ *
+ * @param {*} event
+ */
   close (event) {
     this.drag1 = false
   }

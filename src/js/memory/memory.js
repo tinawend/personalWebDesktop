@@ -1,5 +1,7 @@
 import { template, fourOrTwo } from './htmlmemory.js'
-
+/**
+ *
+ */
 export class Memory extends window.HTMLElement {
   constructor () {
     super()
@@ -16,6 +18,9 @@ export class Memory extends window.HTMLElement {
     this.tiles = this.shuffle(this.rows, this.cols)
   }
 
+  /**
+ *
+ */
   connectedCallback () {
     this.shadowRoot.querySelectorAll('button').forEach(item => {
       item.addEventListener('click', event => {
@@ -45,12 +50,18 @@ export class Memory extends window.HTMLElement {
     })
   }
 
+  /**
+ *
+ */
   cleanUp () {
     while (this.shadowRoot.firstChild) {
       this.shadowRoot.removeChild(this.shadowRoot.firstChild)
     }
   }
 
+  /**
+ *
+ */
   showPics () {
     const pics = this.shadowRoot.querySelector('#pics')
     let img
@@ -76,6 +87,12 @@ export class Memory extends window.HTMLElement {
     })
   }
 
+  /**
+ *
+ * @param {*} tile
+ * @param {*} index
+ * @param {*} img
+ */
   turnBrick (tile, index, img) {
     if (this.turn2) {
       return
@@ -118,6 +135,11 @@ export class Memory extends window.HTMLElement {
     }
   }
 
+  /**
+ *
+ * @param {number} rows
+ * @param {number} cols
+ */
   shuffle (rows, cols) {
     const arr = []
     for (let i = 1; i <= (rows * cols) / 2; i++) {

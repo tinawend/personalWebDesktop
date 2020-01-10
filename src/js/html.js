@@ -16,7 +16,7 @@ wind.innerHTML = `
 <head><link rel="stylesheet" href="css/style.css"></head>
 <div id = 'wrapper' draggable = 'true'>
 <div class = 'close'>+</div>
-<div class = 'div2' >
+<div class = 'app' >
 
 
 </div> 

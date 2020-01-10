@@ -1,5 +1,7 @@
 import { template2, template3 } from './htmltoe.js'
-
+/**
+ *
+ */
 export class TicTac extends window.HTMLElement {
   constructor () {
     super()
@@ -18,12 +20,18 @@ export class TicTac extends window.HTMLElement {
     // this.startGame()
   }
 
+  /**
+ *
+ */
   cleanUp () {
     while (this.shadowRoot.firstChild) {
       this.shadowRoot.removeChild(this.shadowRoot.firstChild)
     }
   }
 
+  /**
+ *
+ */
   enterUsername () {
     this.shadowRoot.querySelector('#username').addEventListener('click', event => {
       event.preventDefault()
@@ -39,6 +47,9 @@ export class TicTac extends window.HTMLElement {
     })
   }
 
+  /**
+ *
+ */
   user () {
     this.obj = [
       this.players[0],
@@ -48,6 +59,9 @@ export class TicTac extends window.HTMLElement {
     window.localStorage.setItem('usernames', JSON.stringify(this.obj))
   }
 
+  /**
+ *
+ */
   startGame () {
     this.shadowRoot.appendChild(template2.content.cloneNode(true))
     this.markers = ['O', 'X']
@@ -78,17 +92,26 @@ export class TicTac extends window.HTMLElement {
             event.target.textContent = this.markers[this.turn]
 
             this.turn = 1
+            if (this.gameOver === false) {
+              this.shadowRoot.querySelector('h1').textContent = this.obj[this.turn] + '`s turn!'
+            }
           } else if (this.turn === 1 && event.target.textContent === '') {
             this.board[event.target.id] = this.markers[this.turn]
             event.target.textContent = this.markers[this.turn]
 
             this.turn = 0
+            if (this.gameOver === false) {
+              this.shadowRoot.querySelector('h1').textContent = this.obj[this.turn] + '`s turn!'
+            }
           }
         }
       })
     }
   }
 
+  /**
+ *
+ */
   win () {
     for (let i = 0; i < this.winalts.length; i++) {
       if ((this.scores[this.turn] & this.winalts[i]) === this.winalts[i]) {

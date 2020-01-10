@@ -1,5 +1,7 @@
 import { template1 } from './htmlchat.js'
-
+/**
+ *
+ */
 export class Chat extends window.HTMLElement {
   constructor () {
     super()
@@ -9,6 +11,9 @@ export class Chat extends window.HTMLElement {
     // this.username = ''
   }
 
+  /**
+ *
+ */
   connectedCallback () {
     // this.enterUsername()
     this.chatDiv.addEventListener('keypress', event => {
@@ -23,6 +28,9 @@ export class Chat extends window.HTMLElement {
     this.enterUsername()
   }
 
+  /**
+ *
+ */
   enterUsername () {
     this.username = JSON.parse(window.localStorage.getItem('username'))
     this.shadowRoot.querySelector('#yourUsername').textContent = this.username
@@ -34,11 +42,12 @@ export class Chat extends window.HTMLElement {
         this.shadowRoot.querySelector('#username').value = ''
         console.log(this.username)
       }
-
-      // this.startGame()
     })
   }
 
+  /**
+ *
+ */
   connect () {
     return new Promise(function (resolve, reject) {
       if (this.socket && this.socket.readyState === 1) {
@@ -59,6 +68,10 @@ export class Chat extends window.HTMLElement {
     }.bind(this))
   }
 
+  /**
+ *
+ * @param {*} text
+ */
   sendMessage (text) {
     const data = {
       type: 'message',
@@ -74,12 +87,21 @@ export class Chat extends window.HTMLElement {
     console.log('sending message', text)
   }
 
+  /**
+ *
+ * @param {*} message
+ */
   printMessage (message) {
     const template = this.chatDiv.querySelector('template')
     const messagediv = document.importNode(template.content.firstElementChild, true)
     messagediv.querySelectorAll('.text')[0].textContent = message.data
     messagediv.querySelectorAll('.author')[0].textContent = message.username + ':'
     this.chatDiv.querySelectorAll('.messages')[0].appendChild(messagediv)
+
+    if (message.username === this.username) {
+      this.shadowRoot.querySelector('.text').style.backgroundColor = 'pink'
+      this.shadowRoot.querySelector('.message').style.marginLeft = '50%'
+    }
   }
 }
 
