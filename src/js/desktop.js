@@ -10,8 +10,6 @@ export class Desktop extends window.HTMLElement {
     this.attachShadow({ mode: 'open' })
     this.shadowRoot.appendChild(desktop.content.cloneNode(true))
     this.windowscol = []
-    // this.drag = false
-    // this.body = document.getElementsByTagName('desktop-view')
   }
 
   connectedCallback () {
@@ -23,7 +21,8 @@ export class Desktop extends window.HTMLElement {
       element.addEventListener('click', event => {
         const div = this.shadowRoot.querySelector('#endiv')
         const windowbox = document.createElement('window-box')
-        this.windowscol.push(windowbox)
+        this.wrapper = windowbox.shadowRoot.querySelector('#wrapper')
+        this.windowscol.push(this.wrapper)
         div.appendChild(windowbox)
         this.div2 = windowbox.shadowRoot.querySelector('.div2')
         if (event.target === this.shadowRoot.querySelector('#memo')) {
@@ -36,26 +35,37 @@ export class Desktop extends window.HTMLElement {
           const tictac = document.createElement('tictac-game')
           this.div2.appendChild(tictac)
         }
+        this.foc(windowbox)
         this.close(windowbox)
-        // this.foc()
       })
     })
   }
 
-  foc () {
-    this.shadowRoot.querySelectorAll('.div2').forEach(element => {
-      element.addEventListener('click', event => {
-        // const body = document.querySelector('body')
-        // body.addEventListener('click', event => {
-        console.log(event)
-        // this.windowscol
-      })
+  foc (windowbox) {
+    windowbox.shadowRoot.querySelector('#wrapper').addEventListener('click', event => {
+      this.sortArray(event)
+      this.zindex()
     })
+  }
+
+  sortArray (event) {
+    this.windowscol.splice(event.target, 1)
+    this.windowscol.push(event.target)
+    console.log(this.windowscol)
+  }
+
+  zindex () {
+    for (let i = this.windowscol.length - 1; i >= 0; i--) {
+      this.windowscol[i].style.zIndex = i
+      console.log(this.windowscol[i])
+    }
   }
 
   close (windowbox) {
     windowbox.shadowRoot.querySelector('.close').addEventListener('click', event => {
-      windowbox.shadowRoot.querySelector('#wrapper').style.display = 'none'
+      const wrapper = windowbox.shadowRoot.querySelector('#wrapper')
+      wrapper.parentNode.removeChild(wrapper)
+      this.windowscol.splice(event.target, 1)
     })
   }
 
