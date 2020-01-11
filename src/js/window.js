@@ -1,7 +1,8 @@
 
 import { wind } from './html.js'
 /**
- *
+ * @class WindowBox
+ * @extends {window.HTML}
  */
 class WindowBox extends window.HTMLElement {
   constructor () {
@@ -27,7 +28,7 @@ class WindowBox extends window.HTMLElement {
   }
 
   /**
- *
+ * mousedown event, calls function if a window is clicked down
  * @param {*} element
  */
   drag (element) {
@@ -39,7 +40,7 @@ class WindowBox extends window.HTMLElement {
   }
 
   /**
- *
+ * startingpoint of drag
  * @param {*} event
  * @param {*} element
  */
@@ -55,7 +56,7 @@ class WindowBox extends window.HTMLElement {
   }
 
   /**
- *
+ * moves a window across the site when hold down the mouse and dragging
  * @param {*} event
  * @param {*} element
  */
@@ -76,7 +77,7 @@ class WindowBox extends window.HTMLElement {
   }
 
   /**
- *
+ * window stops moving if mouse is released
  * @param {*} event
  */
   close (event) {

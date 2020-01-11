@@ -1,6 +1,7 @@
 import { template1 } from './htmlchat.js'
 /**
- *
+ * @class Chat
+ * @extends {window.HTML}
  */
 export class Chat extends window.HTMLElement {
   constructor () {
@@ -8,11 +9,10 @@ export class Chat extends window.HTMLElement {
     this.attachShadow({ mode: 'open' })
     this.shadowRoot.appendChild(template1.content.cloneNode(true))
     this.chatDiv = this.shadowRoot.querySelector('.chat')
-    // this.username = ''
   }
 
   /**
- *
+ *sends message and calls methods
  */
   connectedCallback () {
     // this.enterUsername()
@@ -29,7 +29,7 @@ export class Chat extends window.HTMLElement {
   }
 
   /**
- *
+ * Saves username if savebutton is clicked
  */
   enterUsername () {
     this.username = JSON.parse(window.localStorage.getItem('username'))
@@ -46,7 +46,7 @@ export class Chat extends window.HTMLElement {
   }
 
   /**
- *
+ * connects to websocket
  */
   connect () {
     return new Promise(function (resolve, reject) {
@@ -69,7 +69,7 @@ export class Chat extends window.HTMLElement {
   }
 
   /**
- *
+ * sends message
  * @param {*} text
  */
   sendMessage (text) {
@@ -88,7 +88,7 @@ export class Chat extends window.HTMLElement {
   }
 
   /**
- *
+ * prints message on page
  * @param {*} message
  */
   printMessage (message) {
@@ -97,7 +97,14 @@ export class Chat extends window.HTMLElement {
     messagediv.querySelectorAll('.text')[0].textContent = message.data
     messagediv.querySelectorAll('.author')[0].textContent = message.username + ':'
     this.chatDiv.querySelectorAll('.messages')[0].appendChild(messagediv)
+    this.addClass(message)
+  }
 
+  /**
+ * adds classes to chat depending on who wrote the message
+ * @param {*} message
+ */
+  addClass (message) {
     const mytexts = this.shadowRoot.querySelectorAll('.text')
     for (let i = 0; i < mytexts.length; i++) {
       if ((message.username === this.username) && (!mytexts[i].classList.contains('othertext'))) {

@@ -4,7 +4,8 @@ import './chat/chat.js'
 import './tictacktoe/ticktack.js'
 import './window.js'
 /**
- *
+ * @class Desktop
+ * @extends {window.HTML}
  */
 export class Desktop extends window.HTMLElement {
   constructor () {
@@ -22,7 +23,7 @@ export class Desktop extends window.HTMLElement {
   }
 
   /**
- *
+ * depending on what icon is clicked you get a window with an application
  */
   clickedIcon () {
     this.shadowRoot.querySelectorAll('.ikon').forEach(element => {
@@ -50,7 +51,7 @@ export class Desktop extends window.HTMLElement {
   }
 
   /**
- *
+ * sets focus to the last element in an array
  * @param {*} windowbox
  */
   foc (windowbox) {
@@ -61,7 +62,7 @@ export class Desktop extends window.HTMLElement {
   }
 
   /**
- *
+ * sorts the array, the clicked item is taken out and put last in array
  * @param {*} event
  */
   sortArray (event) {
@@ -71,7 +72,7 @@ export class Desktop extends window.HTMLElement {
   }
 
   /**
- *
+ * sets z-index to array, highest number is given to the last item in the array
  */
   zindex () {
     for (let i = this.windowscol.length - 1; i >= 0; i--) {
@@ -81,7 +82,7 @@ export class Desktop extends window.HTMLElement {
   }
 
   /**
- *
+ * closes a window when the X button is clicked
  * @param {*} windowbox
  */
   close (windowbox) {

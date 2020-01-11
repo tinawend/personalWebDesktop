@@ -1,6 +1,7 @@
 import { template, fourOrTwo } from './htmlmemory.js'
 /**
- *
+ * @class Memory
+ * @extends {window.HTML}
  */
 export class Memory extends window.HTMLElement {
   constructor () {
@@ -12,14 +13,14 @@ export class Memory extends window.HTMLElement {
     this.lastTile = this.lastTile
     this.pairs = 0
     this.tries = 0
-    this.rows = 2
-    this.cols = 2
+    // this.rows = 2
+    // this.cols = 2
 
-    this.tiles = this.shuffle(this.rows, this.cols)
+    // this.tiles = this.shuffle(this.rows, this.cols)
   }
 
   /**
- *
+ * depending on witch button is clicked you get different gameboards
  */
   connectedCallback () {
     this.shadowRoot.querySelectorAll('button').forEach(item => {
@@ -51,7 +52,7 @@ export class Memory extends window.HTMLElement {
   }
 
   /**
- *
+ * removes all html content in template
  */
   cleanUp () {
     while (this.shadowRoot.firstChild) {
@@ -60,7 +61,7 @@ export class Memory extends window.HTMLElement {
   }
 
   /**
- *
+ * shows the memopics if enter or mouse is clicked
  */
   showPics () {
     const pics = this.shadowRoot.querySelector('#pics')
@@ -88,7 +89,7 @@ export class Memory extends window.HTMLElement {
   }
 
   /**
- *
+ * shows the memobrick and gives a winningstatment if all are paired
  * @param {*} tile
  * @param {*} index
  * @param {*} img
@@ -136,9 +137,10 @@ export class Memory extends window.HTMLElement {
   }
 
   /**
- *
+ * shuffles the bricks randomly
  * @param {number} rows
  * @param {number} cols
+ * @returns shuffled array
  */
   shuffle (rows, cols) {
     const arr = []

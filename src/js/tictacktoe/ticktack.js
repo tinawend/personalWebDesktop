@@ -1,18 +1,19 @@
 import { template2, template3 } from './htmltoe.js'
 /**
- *
+ * @class TicTac
+ * @extends {window.HTML}
  */
 export class TicTac extends window.HTMLElement {
   constructor () {
     super()
     this.attachShadow({ mode: 'open' })
     this.shadowRoot.appendChild(template3.content.cloneNode(true))
-    this.markers = ['O', 'X']
+    // this.markers = ['O', 'X']
     this.players = []
     this.players[0] = 'player 1'
     this.players[1] = 'player 2'
-    this.scores = [0, 0]
-    this.turn = 0
+    // this.scores = [0, 0]
+    // this.turn = 0
   }
 
   connectedCallback () {
@@ -21,7 +22,7 @@ export class TicTac extends window.HTMLElement {
   }
 
   /**
- *
+ * removes all html content in template
  */
   cleanUp () {
     while (this.shadowRoot.firstChild) {
@@ -30,7 +31,7 @@ export class TicTac extends window.HTMLElement {
   }
 
   /**
- *
+ * able to put in two usernames, when button is clicked the game starts
  */
   enterUsername () {
     this.shadowRoot.querySelector('#username').addEventListener('click', event => {
@@ -48,7 +49,7 @@ export class TicTac extends window.HTMLElement {
   }
 
   /**
- *
+ * defining players and saving them
  */
   user () {
     this.obj = [
@@ -60,12 +61,12 @@ export class TicTac extends window.HTMLElement {
   }
 
   /**
- *
+ * jumping between the 2 players depending on whos turn.
  */
   startGame () {
     this.shadowRoot.appendChild(template2.content.cloneNode(true))
     this.markers = ['O', 'X']
-    this.players = []
+    // this.players = []
     this.scores = [0, 0]
     this.turn = 0
     this.gameOver = false
@@ -110,7 +111,7 @@ export class TicTac extends window.HTMLElement {
   }
 
   /**
- *
+ * checking if someone has won or if board is full and no one wins.
  */
   win () {
     for (let i = 0; i < this.winalts.length; i++) {
