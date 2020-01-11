@@ -98,10 +98,25 @@ export class Chat extends window.HTMLElement {
     messagediv.querySelectorAll('.author')[0].textContent = message.username + ':'
     this.chatDiv.querySelectorAll('.messages')[0].appendChild(messagediv)
 
-    if (message.username === this.username) {
-      this.shadowRoot.querySelector('.text').style.backgroundColor = 'pink'
-      this.shadowRoot.querySelector('.message').style.marginLeft = '50%'
+    const mytexts = this.shadowRoot.querySelectorAll('.text')
+    for (let i = 0; i < mytexts.length; i++) {
+      if ((message.username === this.username) && (!mytexts[i].classList.contains('othertext'))) {
+        mytexts[i].classList.add('mytext')
+      }
+      const author = this.shadowRoot.querySelectorAll('.author')
+      for (let i = 0; i < author.length; i++) {
+        if ((message.username === this.username) && (!mytexts[i].classList.contains('othertext'))) {
+          author[i].classList.add('myauthor')
+        }
+      }
     }
+    const othertexts = this.shadowRoot.querySelectorAll('.text')
+    for (let i = 0; i < othertexts.length; i++) {
+      if (othertexts[i].classList.contains('mytext') === false) {
+        othertexts[i].classList.add('othertext')
+      }
+    }
+    console.log(this.username)
   }
 }
 
