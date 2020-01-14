@@ -17,7 +17,7 @@ class WindowBox extends window.HTMLElement {
   }
 
   /**
- *
+ * loops through windows
  */
   connectedCallback () {
     const windows = this.shadowRoot.querySelectorAll('#wrapper')
@@ -40,7 +40,7 @@ class WindowBox extends window.HTMLElement {
   }
 
   /**
- * startingpoint of drag
+ * startingposition of drag
  * @param {*} event
  * @param {*} element
  */

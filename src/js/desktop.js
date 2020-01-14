@@ -13,6 +13,7 @@ export class Desktop extends window.HTMLElement {
     this.attachShadow({ mode: 'open' })
     this.shadowRoot.appendChild(desktop.content.cloneNode(true))
     this.windowscol = []
+    this.zIndex = 0
   }
 
   /**
@@ -23,7 +24,8 @@ export class Desktop extends window.HTMLElement {
   }
 
   /**
- * depending on what icon is clicked you get a window with an application
+ * depending on what icon is clicked you get an offset window with an application
+ *
  */
   clickedIcon () {
     this.shadowRoot.querySelectorAll('.ikon').forEach(element => {
@@ -33,6 +35,16 @@ export class Desktop extends window.HTMLElement {
         this.wrapper = windowbox.shadowRoot.querySelector('#wrapper')
         this.windowscol.push(this.wrapper)
         div.appendChild(windowbox)
+
+        const lastIndex = (this.windowscol.length <= 1 ? 0 : this.windowscol.length - 1)
+        if (this.windowscol.length <= 200) {
+          this.windowscol[lastIndex].style.top = parseInt(lastIndex + 10) + 'px'
+          this.windowscol[lastIndex].style.left = parseInt(lastIndex + 10) + 'px'
+        } else if (this.windowscol.length > 200) {
+          this.windowscol[lastIndex].style.left = parseInt(lastIndex + 400) + 'px'
+          this.windowscol[lastIndex].style.top = parseInt(lastIndex - 190) + 'px'
+        }
+
         this.app = windowbox.shadowRoot.querySelector('.app')
         if (event.target === this.shadowRoot.querySelector('#memo')) {
           const memory = document.createElement('memory-game')
@@ -44,6 +56,7 @@ export class Desktop extends window.HTMLElement {
           const tictac = document.createElement('tictac-game')
           this.app.appendChild(tictac)
         }
+
         this.foc(windowbox)
         this.close(windowbox)
       })
@@ -51,7 +64,7 @@ export class Desktop extends window.HTMLElement {
   }
 
   /**
- * sets focus to the last element in an array
+ * sets focus to the first element in an array
  * @param {*} windowbox
  */
   foc (windowbox) {
@@ -62,23 +75,20 @@ export class Desktop extends window.HTMLElement {
   }
 
   /**
- * sorts the array, the clicked item is taken out and put last in array
+ * sorts the array, the clicked item is taken out and put first in array
  * @param {*} event
  */
   sortArray (event) {
     this.windowscol.splice(event.target, 1)
-    this.windowscol.push(event.target)
-    console.log(this.windowscol)
+    this.windowscol.unshift(event.target)
   }
 
   /**
- * sets z-index to array, highest number is given to the last item in the array
+ * sets z-index to array, highest number is given to the first item in the array
  */
   zindex () {
-    for (let i = this.windowscol.length - 1; i >= 0; i--) {
-      this.windowscol[i].style.zIndex = i
-      console.log(this.windowscol[i])
-    }
+    this.zIndex += 1
+    this.windowscol[0].style.zIndex = this.zIndex
   }
 
   /**

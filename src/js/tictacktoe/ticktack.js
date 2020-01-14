@@ -8,17 +8,13 @@ export class TicTac extends window.HTMLElement {
     super()
     this.attachShadow({ mode: 'open' })
     this.shadowRoot.appendChild(template3.content.cloneNode(true))
-    // this.markers = ['O', 'X']
     this.players = []
     this.players[0] = 'player 1'
     this.players[1] = 'player 2'
-    // this.scores = [0, 0]
-    // this.turn = 0
   }
 
   connectedCallback () {
     this.enterUsername()
-    // this.startGame()
   }
 
   /**
@@ -42,14 +38,12 @@ export class TicTac extends window.HTMLElement {
         this.user()
         this.cleanUp()
       }
-
-      console.log(this.players[0], this.players[1])
       this.startGame()
     })
   }
 
   /**
- * defining players and saving them
+ * saving player names
  */
   user () {
     this.obj = [
@@ -66,7 +60,6 @@ export class TicTac extends window.HTMLElement {
   startGame () {
     this.shadowRoot.appendChild(template2.content.cloneNode(true))
     this.markers = ['O', 'X']
-    // this.players = []
     this.scores = [0, 0]
     this.turn = 0
     this.gameOver = false
@@ -77,15 +70,11 @@ export class TicTac extends window.HTMLElement {
     ]
     this.box = this.shadowRoot.querySelectorAll('.box')
     this.board = Array.from(Array(9).keys())
-    console.log(this.board)
 
     for (let i = 0; i < this.box.length; i++) {
       this.box[i].addEventListener('click', event => {
-        console.log(event.target.id)
-
         if (!this.gameOver && event.target.textContent === '') {
           this.scores[this.turn] += parseInt(event.target.id)
-          console.log(this.scores)
           this.win()
 
           if (this.turn === 0 && event.target.textContent === '') {
@@ -116,13 +105,11 @@ export class TicTac extends window.HTMLElement {
   win () {
     for (let i = 0; i < this.winalts.length; i++) {
       if ((this.scores[this.turn] & this.winalts[i]) === this.winalts[i]) {
-        console.log('Win')
         this.shadowRoot.querySelector('h1').textContent = this.obj[this.turn] + ' Wins!'
         this.gameOver = true
       }
     }
     if (((this.scores[0] + this.scores[1]) === 511) && !this.gameOver) {
-      console.log('draw')
       this.shadowRoot.querySelector('h1').textContent = 'Draw!'
       this.gameOver = true
     }

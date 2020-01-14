@@ -9,23 +9,22 @@ export class Chat extends window.HTMLElement {
     this.attachShadow({ mode: 'open' })
     this.shadowRoot.appendChild(template1.content.cloneNode(true))
     this.chatDiv = this.shadowRoot.querySelector('.chat')
+    this.username = null
   }
 
   /**
  *sends message and calls methods
  */
   connectedCallback () {
-    // this.enterUsername()
+    this.enterUsername()
     this.chatDiv.addEventListener('keypress', event => {
-      if (event.keyCode === 13) {
+      if (event.keyCode === 13 && this.username !== null) {
         this.sendMessage(event.target.value)
         event.target.value = ''
         event.preventDefault()
       }
     })
-
     this.connect()
-    this.enterUsername()
   }
 
   /**
@@ -40,7 +39,6 @@ export class Chat extends window.HTMLElement {
         this.username = this.shadowRoot.querySelector('#username').value
         this.shadowRoot.querySelector('#yourUsername').textContent = this.username
         this.shadowRoot.querySelector('#username').value = ''
-        console.log(this.username)
       }
     })
   }
@@ -69,7 +67,7 @@ export class Chat extends window.HTMLElement {
   }
 
   /**
- * sends message
+ * sends data
  * @param {*} text
  */
   sendMessage (text) {
@@ -84,7 +82,6 @@ export class Chat extends window.HTMLElement {
       socket.send(JSON.stringify(data))
     })
     window.localStorage.setItem('username', JSON.stringify(data.username))
-    console.log('sending message', text)
   }
 
   /**
@@ -123,7 +120,6 @@ export class Chat extends window.HTMLElement {
         othertexts[i].classList.add('othertext')
       }
     }
-    console.log(this.username)
   }
 }
 

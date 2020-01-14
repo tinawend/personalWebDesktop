@@ -13,10 +13,6 @@ export class Memory extends window.HTMLElement {
     this.lastTile = this.lastTile
     this.pairs = 0
     this.tries = 0
-    // this.rows = 2
-    // this.cols = 2
-
-    // this.tiles = this.shuffle(this.rows, this.cols)
   }
 
   /**
@@ -110,10 +106,8 @@ export class Memory extends window.HTMLElement {
       this.tries += 1
       this.turn2 = img
       if (tile === this.lastTile) {
-        console.log('Pair!')
         this.pairs += 1
         if (this.pairs === (this.cols * this.rows) / 2) {
-          console.log('you won at ' + this.tries + ' number of tries')
           this.shadowRoot.querySelector('#win').textContent = 'you won on ' + this.tries + ' tries'
           this.shadowRoot.querySelector('h2').textContent = 'congratulations!'
         }
@@ -138,6 +132,7 @@ export class Memory extends window.HTMLElement {
 
   /**
  * shuffles the bricks randomly
+ * fisher yates shuffle
  * @param {number} rows
  * @param {number} cols
  * @returns shuffled array
